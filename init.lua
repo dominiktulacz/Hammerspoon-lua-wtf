@@ -52,9 +52,12 @@ appArray = {
   {"S", "Spotify"}
 }
 
---TODO use foreach here
 hs.hotkey.bind({"cmd", "alt", "ctrl", "shift"}, "H", function()
-  hs.alert.show("Shortcuts (use it with 'caps lock'):\n1. Google Chrome\n2 .IntelliJ IDEA\n3. Terminal\n4. Sublime Text\n5. \n6. \n7. KeePassX\n8. \n9. \n0. Slack\nT. Todoist\nF. Finder\nE. Evernote\nC. Kalendarz\nS. Spotify")
+  local msg = "Shortcuts (use it with 'caps lock'):"
+  for i = 1, 11 do
+    msg = msg .. "\n" .. appArray[i][1] .. ". " .. appArray[i][2]
+  end
+  hs.alert.show(msg)
 end)
 
 for i = 1, 11 do
