@@ -7,7 +7,21 @@ hs.hotkey.bind({"cmd", "alt", "ctrl", "shift"}, "Left", function()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl", "shift"}, "Up", function()
+  maximizeFocusedWindow()
+end)
+
+function maximizeFocusedWindow()
   local win = hs.window.focusedWindow()
+  if (isWindowMaximized(win)) then
+    if(win:screen():toNorth() ~= nil) then
+      win:moveOneScreenNorth()
+    end  
+  else
+    maximizeWindow(win)
+  end
+end
+
+function maximizeWindow(win)
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -17,7 +31,19 @@ hs.hotkey.bind({"cmd", "alt", "ctrl", "shift"}, "Up", function()
   f.w = max.w
   f.h = max.h
   win:setFrame(f)
-end)
+end
+
+function isWindowMaximized(win)
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  if (max.x == f.x and max.y == f.y and max.w == f.w and max.h == f.h) then
+    return true
+  else
+    return false
+  end
+end
 
 function isWindowOnLeftSide(win)
   local f = win:frame()
