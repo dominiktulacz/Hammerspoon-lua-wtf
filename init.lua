@@ -56,7 +56,10 @@ end
 function moveFocusedWindowToLeftSide()
   local win = hs.window.focusedWindow()
   if (isWindowOnLeftSide(win)) then
-    --todo switch screen
+    if (win:screen():toWest() ~= nil) then
+      win:moveOneScreenWest()
+      moveWindowToRightSide(win)
+    end  
   else
     moveWindowToLeftSide(win)
   end
@@ -77,7 +80,10 @@ end
 function moveFocusedWindowToRightSide()
   local win = hs.window.focusedWindow()
   if (isWindowOnRightSide(win)) then
-    --todo switch screen
+    if (win:screen():toEast() ~= nil) then
+      win:moveOneScreenEast()
+      moveWindowToLeftSide(win)
+    end
   else
     moveWindowToRightSide(win)
   end
